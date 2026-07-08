@@ -426,9 +426,16 @@ p {
 }
 
 .motivation-figure {
-  width: min(650px, 100%);
+  width: min(860px, 100%);
   margin-left: auto;
   margin-right: auto;
+}
+
+.motivation-figure img {
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  object-position: center;
+  background: #ffffff;
 }
 
 .wide-figure {
