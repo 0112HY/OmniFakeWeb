@@ -189,18 +189,22 @@
       <figure class="project-figure wide-figure">
         <img src="assets/dataset_pipeline.png" alt="OmniFake dataset construction pipeline." />
         <figcaption>
-          <strong>Dataset construction.</strong> The pipeline starts from multimodal news sources, filters and selects
-          people-centered samples, and constructs real, human-crafted, vision-manipulated, text-manipulated, and mixed
-          manipulation examples.
+          <strong>Dataset construction.</strong> OmniFake is built from Fakeddit and VisualNews. The pipeline collects
+          large-scale image-text news posts, selects 49,034 real posts and 24,726 human-crafted misleading posts, then
+          applies AI generation and editing pipelines to create vision, text, and mixed manipulation samples. The final
+          benchmark contains 98,592 image-text pairs across Real, Human-crafted, Vision Manipulation, Text Manipulation,
+          and Mixed Manipulation.
         </figcaption>
       </figure>
 
       <figure class="project-figure wide-figure">
         <img src="assets/category.png" alt="OmniFake category, subcategory, and domain distributions." />
         <figcaption>
-          <strong>Dataset distribution.</strong> OmniFake keeps a 50% real and 50% fake split. The fake half is divided
-          across human-crafted, vision manipulation, text manipulation, and mixed manipulation categories, with samples
-          spanning lifestyle, entertainment, technology, politics, society, health, business, sports, culture, and more.
+          <strong>Dataset distribution.</strong> OmniFake supports both binary Real/Fake detection and five-class
+          recognition. The fake side covers human-crafted misinformation, image-side manipulations, text-side
+          manipulations, and mixed attacks; the mixed class combines four visual manipulation types with two textual
+          manipulation types. The corpus spans politics, health, people, society, and other domains, giving the benchmark
+          broad category, subcategory, and source-domain coverage.
         </figcaption>
       </figure>
     </section>
@@ -217,8 +221,11 @@
       <figure class="project-figure wide-figure">
         <img src="assets/examples.png" alt="Example OmniFake samples from all misinformation categories." />
         <figcaption>
-          <strong>OmniFake examples.</strong> The dataset includes real news, human-crafted misinformation, image
-          generation, image splicing, text generation, and combined image-text manipulations.
+          <strong>OmniFake examples.</strong> The examples illustrate the five-way setting used by UMFDet. Real posts
+          preserve aligned image-text evidence, human-crafted samples contain misleading human-written claims, vision
+          manipulation covers full-image generation, inpainting or region edits, face swap, and attribute editing, text
+          manipulation rewrites keywords or phrases with LLMs while preserving key entities, and mixed manipulation
+          combines image-side and text-side changes in one post.
         </figcaption>
       </figure>
     </section>

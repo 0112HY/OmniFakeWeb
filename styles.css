@@ -426,7 +426,7 @@ p {
 }
 
 .motivation-figure {
-  width: min(1030px, 100%);
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -443,13 +443,13 @@ p {
 }
 
 .visualization-figure {
-  width: min(1030px, 100%);
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
 
 figcaption {
-  max-width: 960px;
+  max-width: 1080px;
   margin: 14px auto 2px;
   padding: 0 6px 4px;
   color: var(--muted);
