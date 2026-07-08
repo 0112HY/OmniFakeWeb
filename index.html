@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OmniFake & UMFDet</title>
+  <meta name="description" content="Towards Unified Multimodal Misinformation Detection in Social Media." />
+  <meta name="theme-color" content="#111827" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="#">OmniFake / UMFDet</a>
+      <nav class="nav-links" aria-label="Project navigation">
+        <a href="#overview">Overview</a>
+        <a href="#motivation">Motivation</a>
+        <a href="#dataset">Dataset</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#bibtex">BibTeX</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="container narrow">
+        <div class="top-badge">OmniFake Benchmark / UMFDet Baseline</div>
+        <h1>Towards Unified Multimodal Misinformation Detection in Social Media</h1>
+
+        <p class="authors">
+          Haiyang Li, Yaxiong Wang, Shengeng Tang, Yuchen Zhang, Yubin Wang,
+          Lianwei Wu, Lechao Cheng, Zhun Zhong, and Meng Wang
+        </p>
+
+        <p class="affiliation">
+          A benchmark dataset and unified baseline for detecting human-crafted and AI-synthesized multimodal misinformation.
+        </p>
+
+        <div class="link-row">
+          <a class="primary-link" href="assets/The_Name_of_the_Title_Is_Hope.pdf" target="_blank" rel="noopener">Paper PDF</a>
+          <a class="placeholder-link" href="#">Code</a>
+          <a class="placeholder-link" href="#">Dataset</a>
+          <a href="#results">Results</a>
+          <a href="#bibtex">BibTeX</a>
+        </div>
+
+        <div class="hero-abstract">
+          <div class="abstract-label">Abstract</div>
+          <p>
+            Detecting deceptive multimodal content on social media has become an increasingly important problem. Two
+            major types of deception dominate: human-crafted misinformation, such as rumors and misleading posts, and
+            AI-generated content produced by image synthesis models or vision-language models (VLMs). However, these
+            two types are usually addressed as separate tasks. Consequently, existing models are often specialized for
+            only one type of fake content. In real deployments, however, the fake-content type of an incoming multimodal
+            post is typically unknown, which limits the practicality of such specialized systems. To study this setting,
+            we build OmniFake, a benchmark with 98K samples that combines human-curated misinformation from existing
+            resources with newly created AI-generated examples. To address this new task, we propose Unified Multimodal
+            Fake Content Detection (UMFDet), a framework designed to handle both types of deception. UMFDet builds on a
+            VLM backbone augmented with a Category-aware Mixture-of-Experts (CMoE) adapter to capture category-specific
+            cues. We further introduce an Expert-wise Discriminative Regularization to enforce intra-expert compactness.
+            In addition, cross-modal consistency alignment is proposed to improve the perceptual capability of experts
+            for handling different deception types. Experiments show that UMFDet consistently outperforms competitive
+            specialized baselines across both deception types. The dataset and code will be made publicly available.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container intro-panel">
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-number">98K</span>
+          <span class="stat-label">OmniFake samples</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">50/50</span>
+          <span class="stat-label">real vs. fake balance</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">4</span>
+          <span class="stat-label">fake-content families</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">13</span>
+          <span class="stat-label">news domains</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview" class="container section overview-section">
+      <p class="lead">
+        We study unified multimodal misinformation detection: a single model must decide whether an image-text post is
+        real, human-crafted misinformation, vision-manipulated, text-manipulated, or mixed-manipulated.
+      </p>
+
+      <div class="explanation-block">
+        <p>
+          Existing fake-news detectors and generative-content detectors are often trained as separate systems. In real
+          social-media deployment, however, the type of deception is unknown before prediction. OmniFake turns this into
+          a unified five-class benchmark, and UMFDet uses category-aware expert adapters to separate real evidence,
+          human deception cues, and AI-synthesized visual or textual cues.
+        </p>
+      </div>
+    </section>
+
+    <section id="summary" class="container narrow section">
+      <p class="section-kicker">Overview</p>
+      <h2>Project Summary</h2>
+      <p class="section-lead">
+        OmniFake is built for a more realistic verification setting where human-crafted misinformation and AI-generated
+        misinformation coexist. The benchmark contains balanced real and fake samples, multiple manipulation categories,
+        and broad news-domain coverage. UMFDet addresses this task with a VLM backbone, Category-aware
+        Mixture-of-Experts adapters, expert-wise discriminative regularization, and cross-modal consistency alignment.
+      </p>
+    </section>
+
+    <section class="container section summary-grid">
+      <article class="summary-card">
+        <h3>Why unified detection matters</h3>
+        <p>
+          A deployed system usually does not know whether a suspicious post is a rumor, a generated image, generated
+          text, or a mixed attack. The detector must handle all of them under one decision space.
+        </p>
+      </article>
+
+      <article class="summary-card">
+        <h3>What OmniFake provides</h3>
+        <p>
+          OmniFake provides a 98K-sample benchmark with real news and four fake-content families: human-crafted, vision
+          manipulation, text manipulation, and mixed manipulation.
+        </p>
+      </article>
+
+      <article class="summary-card">
+        <h3>What UMFDet predicts</h3>
+        <p>
+          UMFDet predicts a unified class label for each image-text post and learns category-specific cues through
+          expert routing, discriminative regularization, and cross-modal consistency alignment.
+        </p>
+      </article>
+    </section>
+
+    <section id="motivation" class="container section">
+      <p class="section-kicker">Motivation</p>
+      <h2>One Detector for Multiple Deception Types</h2>
+      <p class="section-lead">
+        Social media misinformation is no longer a single problem. Human-written rumors, manipulated images, generated
+        text, and mixed multimodal attacks can appear together. OmniFake frames this as a unified detection task instead
+        of assuming the fake category is known beforehand.
+      </p>
+
+      <figure class="project-figure motivation-figure">
+        <img src="assets/motivation.png" alt="Motivation for unified multimodal misinformation detection." />
+        <figcaption>
+          <strong>Motivation.</strong> Existing pipelines often focus on either human-crafted misinformation or
+          AI-synthesized content. UMFDet receives an image-text post and predicts the unified misinformation category.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="visualization" class="container section">
+      <p class="section-kicker">Visualization</p>
+      <h2>Feature Separation Across Backbones</h2>
+      <p class="section-lead">
+        The visualization compares text feature distributions from BERT, CLIP-ViT-B/32, and Qwen-2.5-7B. Stronger
+        separation helps distinguish human-crafted and AI-synthesized textual signals.
+      </p>
+
+      <figure class="project-figure visualization-figure">
+        <img src="assets/Visualization.png" alt="Feature visualization for human-crafted and AI-synthesized text." />
+        <figcaption>
+          <strong>Feature visualization.</strong> Orange points denote human-crafted text and purple points denote
+          AI-synthesized text. The spaces show different degrees of separability across backbone representations.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="dataset" class="container section">
+      <p class="section-kicker">Dataset</p>
+      <h2>OmniFake Benchmark</h2>
+      <p class="section-lead">
+        OmniFake combines curated real and human-crafted misinformation with generated visual, textual, and mixed
+        manipulations. The benchmark is balanced across real and fake samples while preserving broad domain coverage.
+      </p>
+
+      <figure class="project-figure wide-figure">
+        <img src="assets/dataset_pipeline.png" alt="OmniFake dataset construction pipeline." />
+        <figcaption>
+          <strong>Dataset construction.</strong> The pipeline starts from multimodal news sources, filters and selects
+          people-centered samples, and constructs real, human-crafted, vision-manipulated, text-manipulated, and mixed
+          manipulation examples.
+        </figcaption>
+      </figure>
+
+      <figure class="project-figure wide-figure">
+        <img src="assets/category.png" alt="OmniFake category, subcategory, and domain distributions." />
+        <figcaption>
+          <strong>Dataset distribution.</strong> OmniFake keeps a 50% real and 50% fake split. The fake half is divided
+          across human-crafted, vision manipulation, text manipulation, and mixed manipulation categories, with samples
+          spanning lifestyle, entertainment, technology, politics, society, health, business, sports, culture, and more.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="examples" class="container section">
+      <p class="section-kicker">Examples</p>
+      <h2>Real, Human-Crafted, Vision, Text, and Mixed Misinformation</h2>
+      <p class="section-lead">
+        The benchmark contains realistic samples where the evidence can come from the text, image, or the interaction
+        between modalities. This setting pressures a detector to identify the actual deception type instead of relying
+        on a single shortcut.
+      </p>
+
+      <figure class="project-figure wide-figure">
+        <img src="assets/examples.png" alt="Example OmniFake samples from all misinformation categories." />
+        <figcaption>
+          <strong>OmniFake examples.</strong> The dataset includes real news, human-crafted misinformation, image
+          generation, image splicing, text generation, and combined image-text manipulations.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="method" class="container section">
+      <p class="section-kicker">Method</p>
+      <h2>UMFDet Framework</h2>
+      <p class="section-lead">
+        UMFDet builds on a frozen multimodal backbone and inserts trainable expert adapters. Category-aware experts
+        separate reality, deception, and synthesis cues, while regularization and cross-modal alignment improve the
+        model's ability to handle unknown misinformation types.
+      </p>
+
+      <div class="method-grid">
+        <article class="method-card">
+          <h3>Category-aware MoE</h3>
+          <p>Routes multimodal tokens through experts specialized for reality, deception, and synthesis cues.</p>
+        </article>
+        <article class="method-card">
+          <h3>Expert-wise Regularization</h3>
+          <p>Encourages compact intra-expert representations and clearer separation across experts.</p>
+        </article>
+        <article class="method-card">
+          <h3>Cross-modal Alignment</h3>
+          <p>Aligns visual and textual evidence so the model can reason over inconsistent or generated content.</p>
+        </article>
+      </div>
+
+      <figure class="project-figure wide-figure">
+        <img src="assets/method.png" alt="UMFDet model architecture." />
+        <figcaption>
+          <strong>UMFDet.</strong> The model encodes image and prompt tokens, applies a Category-aware
+          Mixture-of-Experts adapter, and decodes a category-aware answer for unified misinformation detection.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="results" class="container section results-section">
+      <p class="section-kicker">Results</p>
+      <h2>Experimental Results</h2>
+      <p class="section-lead">
+        The experiments evaluate UMFDet from three perspectives: five-class recognition on OmniFake, zero-shot binary
+        detection on MMFakeBench, and transfer to DGM4. Across these settings, UMFDet shows stronger average F1,
+        better class balance, and better transfer than general VLMs and specialized multimodal baselines.
+      </p>
+
+      <div class="result-highlights">
+        <article class="metric-card hero-metric">
+          <span class="metric-label">OmniFake AVG F1</span>
+          <span class="metric-value">82.23</span>
+          <span class="metric-sub">Best five-class average F1 in Table 3.</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Human-crafted F1</span>
+          <span class="metric-value">86.92</span>
+          <span class="metric-sub">Strongest human-crafted misinformation recognition on OmniFake.</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">MMFakeBench Test F1</span>
+          <span class="metric-value">61.70</span>
+          <span class="metric-sub">Best test F1 after training on OmniFake.</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">DGM4 AVG F1</span>
+          <span class="metric-value">83.20</span>
+          <span class="metric-sub">Best overall DGM4 transfer performance in Table 5.</span>
+        </article>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <div>
+            <h3>Main Results on OmniFake</h3>
+            <p>
+              Table 3 compares zero-shot VLMs and OmniFake-trained multimodal methods. UMFDet achieves the strongest
+              average five-class F1 and is especially strong on real, human-crafted, text-manipulated, and mixed
+              manipulation categories.
+            </p>
+          </div>
+          <span class="pill">Table 3</span>
+        </div>
+
+        <div class="scroll-hint">Swipe left or right to view all metrics.</div>
+        <div class="table-wrap scrollable">
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Setting</th>
+                <th rowspan="2">Method</th>
+                <th rowspan="2">Venue</th>
+                <th colspan="3">Real</th>
+                <th colspan="3">Human-crafted</th>
+                <th colspan="3">Vision Manipulation</th>
+                <th colspan="3">Text Manipulation</th>
+                <th colspan="3">Mixed Manipulation</th>
+                <th colspan="3">AVG 5-class</th>
+              </tr>
+              <tr>
+                <th>Pre</th><th>Recall</th><th>F1</th>
+                <th>Pre</th><th>Recall</th><th>F1</th>
+                <th>Pre</th><th>Recall</th><th>F1</th>
+                <th>Pre</th><th>Recall</th><th>F1</th>
+                <th>Pre</th><th>Recall</th><th>F1</th>
+                <th>Pre</th><th>Recall</th><th>F1</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Zero-shot</td><td>Gemini-2.5</td><td>-</td><td>42.86</td><td>42.66</td><td>42.76</td><td>55.00</td><td>47.50</td><td>50.98</td><td>54.55</td><td>56.55</td><td>55.53</td><td>42.86</td><td>58.00</td><td>50.30</td><td>19.99</td><td>47.35</td><td>14.99</td><td>43.05</td><td>50.41</td><td>42.91</td></tr>
+              <tr><td>Zero-shot</td><td>Qwen2.5-VL-72B</td><td>-</td><td>44.81</td><td>49.87</td><td>47.20</td><td>36.08</td><td>40.38</td><td>38.11</td><td>45.61</td><td>46.50</td><td>46.05</td><td>41.54</td><td>44.91</td><td>43.16</td><td>47.00</td><td>42.64</td><td>44.71</td><td>43.01</td><td>44.86</td><td>43.85</td></tr>
+              <tr><td>Zero-shot</td><td>DeepSeek-VL2-27B</td><td>-</td><td>41.21</td><td>46.18</td><td>43.55</td><td>46.67</td><td>43.18</td><td>44.86</td><td>48.11</td><td>50.12</td><td>49.09</td><td>38.95</td><td>37.01</td><td>37.95</td><td>41.29</td><td>47.56</td><td>44.20</td><td>43.24</td><td>44.81</td><td>43.93</td></tr>
+              <tr><td>Zero-shot</td><td>GPT-4o</td><td>-</td><td>60.00</td><td>59.24</td><td>60.59</td><td>43.70</td><td>37.58</td><td>40.41</td><td>41.34</td><td>45.22</td><td>42.78</td><td>40.51</td><td>51.59</td><td>45.36</td><td>44.58</td><td>31.21</td><td>35.32</td><td>46.03</td><td>44.97</td><td>44.89</td></tr>
+              <tr><td>OmniFake</td><td>FKA-OWL</td><td>MM'24</td><td>78.71</td><td>93.47</td><td>85.40</td><td>88.18</td><td>72.08</td><td>78.32</td><td>65.37</td><td>56.09</td><td>60.38</td><td>49.91</td><td>21.67</td><td>30.22</td><td>61.35</td><td>69.97</td><td>65.38</td><td>68.70</td><td>62.65</td><td>64.15</td></tr>
+              <tr><td>OmniFake</td><td>HAMMER</td><td>CVPR'24</td><td>82.98</td><td>80.93</td><td>81.94</td><td>74.98</td><td>73.67</td><td>74.32</td><td>71.21</td><td>73.86</td><td>72.51</td><td>52.12</td><td>51.30</td><td>51.70</td><td>74.17</td><td>72.97</td><td>73.57</td><td>71.09</td><td>70.55</td><td>70.81</td></tr>
+              <tr><td>OmniFake</td><td>MIMOE</td><td>WWW'25</td><td>81.33</td><td>86.51</td><td>83.84</td><td>80.06</td><td>66.31</td><td>72.54</td><td>69.12</td><td>78.02</td><td>73.30</td><td>56.81</td><td>51.45</td><td>53.45</td><td>73.56</td><td>65.86</td><td>69.50</td><td>72.58</td><td>69.83</td><td>70.93</td></tr>
+              <tr><td>OmniFake</td><td>GLPN</td><td>ACL'25</td><td>59.81</td><td>95.45</td><td>73.54</td><td>69.80</td><td>57.79</td><td>63.23</td><td>51.15</td><td>12.66</td><td>20.30</td><td>22.22</td><td>0.81</td><td>1.57</td><td>54.75</td><td>27.60</td><td>36.70</td><td>51.55</td><td>38.86</td><td>39.07</td></tr>
+              <tr class="ours"><td>OmniFake</td><td>UMFDet (Ours)</td><td>-</td><td>87.04</td><td>92.94</td><td>89.89</td><td>92.17</td><td>82.22</td><td>86.92</td><td>79.49</td><td>63.23</td><td>70.43</td><td>71.95</td><td>61.85</td><td>66.52</td><td>68.68</td><td>81.17</td><td>74.40</td><td>82.56</td><td>82.53</td><td>82.23</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <div>
+            <h3>Zero-shot Binary Detection on MMFakeBench</h3>
+            <p>
+              Table 4 shows that training on OmniFake improves transfer to MMFakeBench. UMFDet obtains the highest
+              validation F1 and test F1 among the compared train-on-OmniFake methods, while also keeping precision high.
+            </p>
+          </div>
+          <span class="pill">Table 4</span>
+        </div>
+
+        <div class="table-wrap scrollable compact-results">
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Model</th>
+                <th rowspan="2">Language Model</th>
+                <th rowspan="2">Prompt</th>
+                <th colspan="4">Validation (1000)</th>
+                <th colspan="4">Test (10000)</th>
+              </tr>
+              <tr>
+                <th>F1</th><th>Precision</th><th>Recall</th><th>ACC</th>
+                <th>F1</th><th>Precision</th><th>Recall</th><th>ACC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group-row"><td colspan="11">LVLMs with 7B Parameter</td></tr>
+              <tr><td>InstructBLIP</td><td>Vicuna-7B</td><td>Standard</td><td>14.7</td><td>30.8</td><td>13.2</td><td>8.1</td><td>16.1</td><td>40.5</td><td>14.2</td><td>8.8</td></tr>
+              <tr><td>Qwen-VL</td><td>Qwen-7B</td><td>Standard</td><td>43.6</td><td>50.6</td><td>44.9</td><td>60.3</td><td>44.0</td><td>51.6</td><td>45.2</td><td>60.5</td></tr>
+              <tr><td>PandaGPT</td><td>Vicuna-7B</td><td>Standard</td><td>24.6</td><td>60.6</td><td>50.5</td><td>30.9</td><td>24.1</td><td>61.7</td><td>50.4</td><td>30.6</td></tr>
+              <tr><td>mPLUG-Owl2</td><td>LLaMA2-7B</td><td>Standard</td><td>47.2</td><td>64.9</td><td>52.3</td><td>70.6</td><td>48.7</td><td>71.1</td><td>53.3</td><td>71.4</td></tr>
+              <tr><td>LLaVA-1.6</td><td>Vicuna-7B</td><td>Standard</td><td>48.1</td><td>48.2</td><td>48.5</td><td>59.5</td><td>52.5</td><td>53.0</td><td>52.6</td><td>62.5</td></tr>
+              <tr class="group-row"><td colspan="11">LVLMs with 13B Parameter</td></tr>
+              <tr><td>InstructBLIP</td><td>Vicuna-13B</td><td>Standard</td><td>41.1</td><td>35.0</td><td>49.9</td><td>69.9</td><td>41.1</td><td>35.0</td><td>49.9</td><td>69.8</td></tr>
+              <tr><td>InstructBLIP</td><td>Vicuna-13B</td><td>MMD-Agent</td><td>51.3</td><td>53.4</td><td>54.0</td><td>53.1</td><td>47.9</td><td>50.1</td><td>50.1</td><td>49.9</td></tr>
+              <tr><td>LLaVA-1.6</td><td>Vicuna-13B</td><td>Standard</td><td>41.1</td><td>35.0</td><td>50.0</td><td>69.7</td><td>42.3</td><td>57.3</td><td>50.1</td><td>69.5</td></tr>
+              <tr><td>LLaVA-1.6</td><td>Vicuna-13B</td><td>MMD-Agent</td><td>51.8</td><td>66.7</td><td>54.6</td><td>71.4</td><td>50.2</td><td>67.3</td><td>53.9</td><td>71.3</td></tr>
+              <tr class="group-row"><td colspan="11">Train on OmniFake</td></tr>
+              <tr><td>HAMMER</td><td>-</td><td>-</td><td>56.68</td><td>69.54</td><td>57.62</td><td>57.64</td><td>57.29</td><td>71.32</td><td>58.11</td><td>58.21</td></tr>
+              <tr class="ours"><td>UMFDet (Ours)</td><td>Florence2-0.7B</td><td>Ours</td><td>61.74</td><td>70.16</td><td>61.14</td><td>61.17</td><td>61.70</td><td>70.94</td><td>61.12</td><td>61.14</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-card-header">
+          <div>
+            <h3>Transfer Results on DGM4</h3>
+            <p>
+              Table 5 compares multimodal learning methods on DGM4. UMFDet achieves the best average ACC and F1, and
+              also performs strongly on the AI-synthesized split, indicating that OmniFake training improves cross-dataset
+              robustness.
+            </p>
+          </div>
+          <span class="pill">Table 5</span>
+        </div>
+
+        <div class="table-wrap scrollable compact-results">
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Method</th>
+                <th rowspan="2">Venue</th>
+                <th colspan="4">AVG</th>
+                <th colspan="4">Real</th>
+                <th colspan="4">AI-synthesized</th>
+              </tr>
+              <tr>
+                <th>ACC</th><th>Pre</th><th>Recall</th><th>F1</th>
+                <th>ACC</th><th>Pre</th><th>Recall</th><th>F1</th>
+                <th>ACC</th><th>Pre</th><th>Recall</th><th>F1</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Qwen-2.5-VL-72B</td><td>arXiv'25</td><td>60.06</td><td>57.48</td><td>57.81</td><td>57.64</td><td>60.46</td><td>42.71</td><td>50.92</td><td>46.46</td><td>60.12</td><td>72.26</td><td>64.71</td><td>68.28</td></tr>
+              <tr><td>GPT-4o</td><td>arXiv'24</td><td>62.14</td><td>59.20</td><td>58.45</td><td>58.82</td><td>62.75</td><td>45.03</td><td>52.86</td><td>48.56</td><td>61.93</td><td>74.10</td><td>66.48</td><td>69.55</td></tr>
+              <tr><td>DeepSeek-VL2-27B</td><td>arXiv'25</td><td>57.23</td><td>62.51</td><td>57.12</td><td>59.69</td><td>59.54</td><td>57.17</td><td>66.14</td><td>61.33</td><td>43.21</td><td>67.82</td><td>48.03</td><td>56.23</td></tr>
+              <tr><td>Gemini-2.5</td><td>arXiv'25</td><td>67.20</td><td>64.05</td><td>63.30</td><td>63.67</td><td>67.90</td><td>48.60</td><td>57.10</td><td>52.51</td><td>66.85</td><td>78.90</td><td>71.20</td><td>74.85</td></tr>
+              <tr><td>MIMOE</td><td>WWW'25</td><td>62.11</td><td>58.74</td><td>59.32</td><td>58.84</td><td>62.11</td><td>44.02</td><td>50.98</td><td>47.25</td><td>62.11</td><td>73.45</td><td>67.65</td><td>70.43</td></tr>
+              <tr><td>FKA-OWL</td><td>MM'24</td><td>76.37</td><td>76.91</td><td>78.58</td><td>79.30</td><td>69.62</td><td>74.09</td><td>70.47</td><td>82.82</td><td>76.14</td><td>93.92</td><td>72.67</td><td>81.94</td></tr>
+              <tr><td>HAMMER</td><td>CVPR'24</td><td>80.62</td><td>81.27</td><td>85.13</td><td>83.16</td><td>80.63</td><td>66.87</td><td>82.83</td><td>74.00</td><td>80.63</td><td>84.28</td><td>89.53</td><td>86.83</td></tr>
+              <tr class="ours"><td>UMFDet (Ours)</td><td>Ours</td><td>83.10</td><td>81.35</td><td>84.62</td><td>83.20</td><td>86.88</td><td>69.21</td><td>86.88</td><td>77.14</td><td>81.18</td><td>92.85</td><td>81.18</td><td>86.62</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <figure class="project-figure wide-figure result-profile-figure">
+        <img src="assets/results.png" alt="UMFDet quantitative results on PHEME, DGM4, and FineFake." />
+        <figcaption>
+          <strong>Result profiles.</strong> UMFDet reaches a better early-rate and performance trade-off on PHEME, and
+          maintains stronger zero-shot performance across DGM4 and FineFake metrics.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="bibtex" class="container narrow section">
+      <p class="section-kicker">Citation</p>
+      <h2>BibTeX</h2>
+
+      <pre><code>@misc{li2025unifiedmultimodalmisinformationdetection,
+  title         = {Towards Unified Multimodal Misinformation Detection in Social Media: A Benchmark Dataset and Baseline},
+  author        = {Haiyang Li and Yaxiong Wang and Shengeng Tang and Lianwei Wu and Lechao Cheng and Zhun Zhong},
+  year          = {2025},
+  eprint        = {2509.25991},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/abs/2509.25991}
+}</code></pre>
+    </section>
+
+    <footer class="container footer">
+      <p>Project page for OmniFake and UMFDet.</p>
+    </footer>
+  </main>
+</body>
+</html>
