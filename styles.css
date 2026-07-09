@@ -201,13 +201,27 @@ p {
   color: #e5e7eb;
   font-size: 1.05rem;
   font-weight: 650;
+  line-height: 1.8;
 }
 
 .authors a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-right: 2px;
   color: inherit;
   text-decoration: none;
   text-underline-offset: 4px;
+  white-space: nowrap;
   transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+.authors a::before {
+  content: "";
+  width: 0.98em;
+  height: 0.98em;
+  flex: 0 0 0.98em;
+  background: url("assets/scholar.png") center / contain no-repeat;
 }
 
 .authors a:hover,
