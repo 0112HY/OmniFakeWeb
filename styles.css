@@ -432,10 +432,7 @@ p {
 }
 
 .motivation-figure img {
-  aspect-ratio: 4 / 3;
-  object-fit: contain;
-  object-position: center;
-  background: #ffffff;
+  height: auto;
 }
 
 .wide-figure {
