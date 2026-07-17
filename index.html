@@ -38,7 +38,7 @@
           <a href="https://scholar.google.com/citations?user=ZVWnMrYAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Lianwei Wu</a>,
           <a href="https://scholar.google.com/citations?user=PKFAv-cAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Lechao Cheng</a>,
           <a href="https://scholar.google.com/citations?user=-_aPWUIAAAAJ&hl=en" target="_blank" rel="noopener">Liu Liu</a>,
-          <a href="#" target="_blank" rel="noopener">Chaofeng Dong</a>, and
+          <a href="https://openreview.net/profile?id=~Chaofeng_Dong1" target="_blank" rel="noopener">Chaofeng Dong</a>, and
           <a href="https://scholar.google.com/citations?user=4EzlnxwAAAAJ&hl=zh-CN&oi=ao" target="_blank" rel="noopener">Le Wu</a>
         </p>
 
@@ -47,8 +47,10 @@
         </p>
 
         <div class="link-row">
+          <!-- Paper PDF button is hidden until the paper is accepted.
           <a class="primary-link" href="assets/The_Name_of_the_Title_Is_Hope.pdf" target="_blank" rel="noopener">Paper PDF</a>
-          <a class="placeholder-link" href="#">Code</a>
+          -->
+          <a class="placeholder-link" href="https://github.com/0112HY/OmniFake-UMFDet" target="_blank" rel="noopener">Code</a>
           <a class="placeholder-link" href="https://huggingface.co/datasets/hy1228/OmniFake98K" target="_blank" rel="noopener">Dataset</a>
           <a href="#results">Results</a>
           <a href="#bibtex">BibTeX</a>
@@ -177,9 +179,9 @@
       </p>
 
       <figure class="project-figure visualization-figure">
-        <img src="assets/Visualization.png?v=20260715" alt="Feature visualization for human-crafted and AI-synthesized text." />
+        <img src="assets/Visualization.png?v=20260717" alt="Feature visualization with red circles for human-crafted text and blue triangles for AI-synthesized text." />
         <figcaption>
-          <strong>Feature visualization.</strong> Orange points denote human-crafted text and purple points denote
+          <strong>Feature visualization.</strong> Red circles denote human-crafted text and blue triangles denote
           AI-synthesized text. The spaces show different degrees of separability across backbone representations.
         </figcaption>
       </figure>
@@ -226,13 +228,13 @@
       </p>
 
       <figure class="project-figure wide-figure">
-        <img src="assets/examples.png?v=20260716" alt="Example OmniFake samples from all misinformation categories." />
+        <img src="assets/examples.png?v=20260717" alt="OmniFake examples of real, human-crafted, image-generated, face-swapped, text-attribute, text-generated, and mixed manipulations." />
         <figcaption>
           <strong>OmniFake examples.</strong> The examples illustrate the five-way setting used by UMFDet. Real posts
-          preserve aligned image-text evidence, human-crafted samples contain misleading human-written claims, vision
-          manipulation covers full-image generation, inpainting or region edits, face swap, and attribute editing, text
-          manipulation rewrites keywords or phrases with LLMs while preserving key entities, and mixed manipulation
-          combines image-side and text-side changes in one post.
+          preserve aligned image-text evidence, while human-crafted samples contain misleading human-written claims.
+          The shown vision manipulations include image generation and face swap; the text manipulations include text
+          attribute editing and text generation. Mixed examples combine image generation with text attribute editing,
+          or face swap with text generation.
         </figcaption>
       </figure>
     </section>
